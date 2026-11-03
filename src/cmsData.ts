@@ -88,7 +88,7 @@ export const INITIAL_CMS_SETTINGS: CMSSettings = {
     },
   },
   galeri: {
-    tautanGoogleForm: 'https://docs.google.com/forms',
+    tautanGoogleForm: 'https://forms.gle/2zWkXfGgqXWCEGst5',
     daftarKelas: ['8A', '8B', '8C', '8D', '8E'],
     kartuPerTahap: 12,
     urutanAwal: 'newest',
@@ -122,6 +122,9 @@ export function getStoredCMS(): CMSSettings {
     const raw = localStorage.getItem(STORAGE_KEY_CMS);
     if (raw) {
       const parsed = JSON.parse(raw);
+      const userFormLink = parsed.galeri?.tautanGoogleForm && parsed.galeri.tautanGoogleForm !== 'https://docs.google.com/forms'
+        ? parsed.galeri.tautanGoogleForm
+        : 'https://forms.gle/2zWkXfGgqXWCEGst5';
       return {
         ...INITIAL_CMS_SETTINGS,
         ...parsed,
@@ -138,7 +141,7 @@ export function getStoredCMS(): CMSSettings {
         galeri: {
           ...INITIAL_CMS_SETTINGS.galeri,
           ...parsed.galeri,
-          tautanGoogleForm: parsed.galeri?.tautanGoogleForm || INITIAL_CMS_SETTINGS.galeri.tautanGoogleForm,
+          tautanGoogleForm: userFormLink,
         },
         fitur: { ...INITIAL_CMS_SETTINGS.fitur, ...parsed.fitur },
         footerKontak: { ...INITIAL_CMS_SETTINGS.footerKontak, ...parsed.footerKontak },
