@@ -88,7 +88,7 @@ export const INITIAL_CMS_SETTINGS: CMSSettings = {
     },
   },
   galeri: {
-    tautanGoogleForm: '',
+    tautanGoogleForm: 'https://docs.google.com/forms',
     daftarKelas: ['8A', '8B', '8C', '8D', '8E'],
     kartuPerTahap: 12,
     urutanAwal: 'newest',
@@ -135,7 +135,11 @@ export function getStoredCMS(): CMSSettings {
           sambutan: { ...INITIAL_CMS_SETTINGS.bagianHalaman.sambutan, ...parsed.bagianHalaman?.sambutan },
           aboutProject: { ...INITIAL_CMS_SETTINGS.bagianHalaman.aboutProject, ...parsed.bagianHalaman?.aboutProject },
         },
-        galeri: { ...INITIAL_CMS_SETTINGS.galeri, ...parsed.galeri },
+        galeri: {
+          ...INITIAL_CMS_SETTINGS.galeri,
+          ...parsed.galeri,
+          tautanGoogleForm: parsed.galeri?.tautanGoogleForm || INITIAL_CMS_SETTINGS.galeri.tautanGoogleForm,
+        },
         fitur: { ...INITIAL_CMS_SETTINGS.fitur, ...parsed.fitur },
         footerKontak: { ...INITIAL_CMS_SETTINGS.footerKontak, ...parsed.footerKontak },
         sinkronisasi: { ...INITIAL_CMS_SETTINGS.sinkronisasi, ...parsed.sinkronisasi },
