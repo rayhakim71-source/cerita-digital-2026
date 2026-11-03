@@ -7,7 +7,7 @@
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { CMSSettings, Story, StoryStatus, UserRole, ActivityLog } from './types';
-import { getStoredStories, saveStoredStories, getPublicStories } from './storyData';
+import { getStoredStories, saveStoredStories, getPublicStories, fetchLiveGoogleSheetStories } from './storyData';
 import { getStoredCMS, saveStoredCMS } from './cmsData';
 import { getCurrentSession, clearSession, refreshActivity } from './authData';
 import { getStoredLogs, addActivityLog } from './activityLogs';
@@ -63,6 +63,13 @@ export default function App() {
     const handleOffline = () => setIsOnline(false);
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
+
+    fetchLiveGoogleSheetStories().then((liveStories) => {
+      if (liveStories && liveStories.length > 0) {
+        setStories(liveStories);
+      }
+    });
+
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
