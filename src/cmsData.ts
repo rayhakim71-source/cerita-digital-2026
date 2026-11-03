@@ -111,7 +111,7 @@ export const INITIAL_CMS_SETTINGS: CMSSettings = {
     urlWebApp: '',
     token: '',
     idFolderDrive: '',
-    idSpreadsheet: '',
+    idSpreadsheet: '1LxUk3nvskNh1RzqJBpQDyxHlVBwTr3icsrkwq5AyWQg',
     namaSheet: 'KaryaSiswa',
     terakhirSinkron: '',
   },
@@ -145,7 +145,11 @@ export function getStoredCMS(): CMSSettings {
         },
         fitur: { ...INITIAL_CMS_SETTINGS.fitur, ...parsed.fitur },
         footerKontak: { ...INITIAL_CMS_SETTINGS.footerKontak, ...parsed.footerKontak },
-        sinkronisasi: { ...INITIAL_CMS_SETTINGS.sinkronisasi, ...parsed.sinkronisasi },
+        sinkronisasi: {
+          ...INITIAL_CMS_SETTINGS.sinkronisasi,
+          ...parsed.sinkronisasi,
+          idSpreadsheet: parsed.sinkronisasi?.idSpreadsheet || INITIAL_CMS_SETTINGS.sinkronisasi.idSpreadsheet,
+        },
       };
     }
   } catch {
